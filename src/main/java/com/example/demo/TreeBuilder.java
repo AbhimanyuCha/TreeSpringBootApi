@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.sun.source.tree.Tree;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -99,7 +98,6 @@ public class TreeBuilder {
                 freeRoots.add(it.left);
             if(it.right != null)
                 freeRoots.add(it.right);
-            System.out.println(freeRoots.toString());
             return null;
         }
         it.left = dfs(it.left, key);
