@@ -19,7 +19,7 @@ public class TreeAppApplication {
 
 
 	@PostMapping("/makeTree")
-	public ResponseEntity makeTree(@RequestBody Request request){
+	public ResponseEntity makeTreeController(@RequestBody Request request){
 		List<String> values = request.getValues();
 		System.out.println(values.toString());
 		if(values == null)
@@ -37,7 +37,7 @@ public class TreeAppApplication {
 	2. Assuming that it will not throw any exception as the logic is not breaking.
  */
 	@PostMapping("/delete/{value}")
-	public ResponseEntity deleteNode(@PathVariable String value){
+	public ResponseEntity deleteNodeController(@PathVariable String value){
 		int val = Integer.parseInt(value);
 		treeService.deleteKey(val);
 		return ResponseEntity.ok(treeService.getRoots());
