@@ -1,14 +1,13 @@
 package com.example.demo;
 
-import lombok.NonNull;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -18,11 +17,13 @@ public class TreeAppApplication {
 	@Autowired
 	TreeService treeService;
 
-	@PostMapping("/makeTree/{values}")
-	public ResponseEntity makeTree(@PathVariable List<String> values){
+
+	@PostMapping("/makeTree")
+	public ResponseEntity makeTree(@RequestBody Request request){
+		List<String> values = request.getValues();
+		System.out.println(values.toString());
 		if(values == null)
 			return ResponseEntity.badRequest().body("Please Enter some values");
-
 		try {
 			treeService.makeTree(values);
 		} catch (IllegalArgumentException exception){
