@@ -122,6 +122,6 @@ public class TreeServiceImpl implements TreeService {
 
     @Override
     public List<Integer> getRoots() {
-        return freeRoots.stream().map(t -> t.getVal()).collect(Collectors.toList());
+        return freeRoots.stream().filter(Objects::nonNull).map(t -> t.getVal()).collect(Collectors.toList());
     }
 }

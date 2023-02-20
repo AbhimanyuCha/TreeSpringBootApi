@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -21,12 +20,11 @@ public class TreeAppApplication {
 	@PostMapping("/makeTree")
 	public ResponseEntity makeTreeController(@RequestBody Request request){
 		List<String> values = request.getValues();
-		System.out.println(values.toString());
 		if(values == null)
 			return ResponseEntity.badRequest().body("Please Enter some values");
 		try {
 			treeService.makeTree(values);
-		} catch (IllegalArgumentException exception){
+		} catch (NumberFormatException exception){
 			return ResponseEntity.badRequest().body(exception.getMessage());
 		}
 		return ResponseEntity.ok().body("Tree Successfully made !");
@@ -40,7 +38,8 @@ public class TreeAppApplication {
 	public ResponseEntity deleteNodeController(@PathVariable String value){
 		int val = Integer.parseInt(value);
 		treeService.deleteKey(val);
-		return ResponseEntity.ok(treeService.getRoots());
+		List<Integer> roots = treeService.getRoots();
+		return ResponseEntity.ok(roots);
 	}
 
 	private void validate(@NonNull List<String> values) throws IllegalArgumentException{
