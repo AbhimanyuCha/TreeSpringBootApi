@@ -125,8 +125,12 @@ public class TreeServiceImpl implements TreeService {
                     - For null it should return empty list.
                 4. Check null in delete.
 
-        SOLID Principles followed ":
-            1. Single Responsiblitiy : Each class should 1 reason to change
+        SOLID Principles followed :
+            1. Single Responsiblitiy : Each class should 1 reason to change (yes)
+            2. Open Closed Principle : Open for extension and closed (no)
+            3. Liskov Substitution (Yes)
+            4. Interface Segregation
+            5. Dependency of Inversion (Yes) class depend on interfaces rather than concrete classes.
 
      */
 
