@@ -13,6 +13,7 @@ public class TreeServiceImpl implements TreeService {
     TreeNode root;
     List<TreeNode> freeRoots = new ArrayList<>();
 
+    //can be improved, it will break on specially -1 value. [Needs to be fixed]
     private void bfs(List<String> values){
         Queue<TreeNode> q = new LinkedList<>();
         root = new TreeNode();
@@ -49,6 +50,12 @@ public class TreeServiceImpl implements TreeService {
             }
         }
     }
+
+    /*
+            1
+         2     3
+     nul nul nul nul
+     */
 
     private void build(List<String> values){
         freeRoots.clear();
@@ -109,6 +116,19 @@ public class TreeServiceImpl implements TreeService {
         }
         freeRoots = freeRoots.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
+
+    /*
+            input validation points :
+                1. We need to check if the values are of size (2 * x + 1)
+                2. Integer check for the values in both delete and create (tick)
+                3. Check if input is null (if the list is empty) (include in the business logic)
+                    - For null it should return empty list.
+                4. Check null in delete.
+
+        SOLID Principles followed ":
+            1. Single Responsiblitiy : Each class should 1 reason to change
+
+     */
 
     @Override
     public void makeTree(List<String> values){

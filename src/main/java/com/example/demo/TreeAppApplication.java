@@ -36,10 +36,14 @@ public class TreeAppApplication {
  */
 	@PostMapping("/delete/{value}")
 	public ResponseEntity deleteNodeController(@PathVariable String value){
-		int val = Integer.parseInt(value);
-		treeService.deleteKey(val);
-		List<Integer> roots = treeService.getRoots();
-		return ResponseEntity.ok(roots);
+		try {
+			int val = Integer.parseInt(value);
+			treeService.deleteKey(val);
+			List<Integer> roots = treeService.getRoots();
+			return ResponseEntity.ok(roots);
+		}catch (NumberFormatException exception){
+			return ResponseEntity.badRequest().body(exception.getMessage());
+		}
 	}
 
 	private void validate(@NonNull List<String> values) throws IllegalArgumentException{
