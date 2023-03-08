@@ -15,10 +15,10 @@ import java.util.stream.Stream;
 public class TreeAppApplication {
     public final TreeService treeService;
 
-	@Autowired
-	public TreeAppApplication(TreeService treeService){
-		this.treeService = treeService;
-	}
+    @Autowired
+    public TreeAppApplication(TreeService treeService) {
+        this.treeService = treeService;
+    }
 
     @PostMapping("/makeTree")
     public ResponseEntity makeTreeController(@RequestBody Request request) {
