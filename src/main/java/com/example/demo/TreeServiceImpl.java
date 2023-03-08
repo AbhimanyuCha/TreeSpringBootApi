@@ -14,11 +14,11 @@ public class TreeServiceImpl implements TreeService {
     List<TreeNode> freeRoots = new ArrayList<>();
 
     //can be improved, it will break on specially -1 value. [Needs to be fixed]
-    private void bfs(List<String> values){
+    private void bfs(List<String> values) {
         Queue<TreeNode> q = new LinkedList<>();
         root = new TreeNode();
         q.offer(root);
-        for(String sval : values) {
+        for (String sval : values) {
             TreeNode node = q.poll();
             if (sval.equals("null")) {
                 node.setVal(-1);
@@ -34,15 +34,15 @@ public class TreeServiceImpl implements TreeService {
 
         q.clear();
         q.offer(root);
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             TreeNode node = q.poll();
-            if(node.left != null) {
+            if (node.left != null) {
                 if (node.left.getVal() == -1)
                     node.left = null;
                 else
                     q.offer(node.left);
             }
-            if(node.right != null) {
+            if (node.right != null) {
                 if (node.right.getVal() == -1)
                     node.right = null;
                 else
@@ -57,7 +57,7 @@ public class TreeServiceImpl implements TreeService {
      nul nul nul nul
      */
 
-    private void build(List<String> values){
+    private void build(List<String> values) {
         freeRoots.clear();
         bfs(values);
         freeRoots.add(root);
@@ -86,13 +86,13 @@ public class TreeServiceImpl implements TreeService {
         print2DUtil(root.left, space);
     }
 
-    private TreeNode dfs(TreeNode it, int key){
-        if(it == null)
+    private TreeNode dfs(TreeNode it, int key) {
+        if (it == null)
             return null;
-        if(it.getVal() == key){
-            if(it.left != null)
+        if (it.getVal() == key) {
+            if (it.left != null)
                 freeRoots.add(it.left);
-            if(it.right != null)
+            if (it.right != null)
                 freeRoots.add(it.right);
             return null;
         }
@@ -101,17 +101,16 @@ public class TreeServiceImpl implements TreeService {
         return it;
     }
 
-    private void delete(int key){
-        for(int i = 0 ; i < freeRoots.size(); i++) {
+    private void delete(int key) {
+        for (int i = 0; i < freeRoots.size(); i++) {
             TreeNode root_it = freeRoots.get(i);
-            if(root_it.getVal() == key) {// deleting a root
+            if (root_it.getVal() == key) {// deleting a root
                 freeRoots.set(i, null);
-                if(root_it.left != null)
+                if (root_it.left != null)
                     freeRoots.add(root_it.left);
-                if(root_it.right != null)
+                if (root_it.right != null)
                     freeRoots.add(root_it.right);
-            }
-            else
+            } else
                 dfs(root_it, key);
         }
         freeRoots = freeRoots.stream().filter(Objects::nonNull).collect(Collectors.toList());
@@ -135,7 +134,7 @@ public class TreeServiceImpl implements TreeService {
      */
 
     @Override
-    public void makeTree(List<String> values){
+    public void makeTree(List<String> values) {
         build(values);
     }
 
